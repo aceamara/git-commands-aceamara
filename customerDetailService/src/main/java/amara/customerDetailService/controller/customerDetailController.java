@@ -2,8 +2,10 @@ package amara.customerDetailService.controller;
 
 import java.util.List;
 
-import amara.customerDetailService.entity.CustomerRating;
-import amara.customerDetailService.service.customerRatingService;
+
+import amara.customerDetailService.entity.CustomerShare;
+
+import amara.customerDetailService.service.customerDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,21 +16,21 @@ import org.springframework.web.servlet.ModelAndView;
 public class customerDetailController {
 
     @Autowired
-    private customerRatingService CustomerDetailService;
+    private amara.customerDetailService.service.customerDetailService customerDetailService;
 
     @RequestMapping("/")
     public ModelAndView getUserInputPage() {
         return new ModelAndView("InputCustomerId");
     }
-    @RequestMapping("/checkShare")
-    public ModelAndView checkCustomerDetailController (@RequestParam("CustomerId")String CustomerId){
+    @RequestMapping("/checkShares")
+    public ModelAndView checkCustomerDetailController (@RequestParam("CustomerId")String customerId){
         ModelAndView modelAndView = new ModelAndView();
 
-        List<CustomerRating>customerRatings=customerRatingService.getCustomerRatingByCustomerId(CustomerId);
+        List<CustomerShare>customerShares= amara.customerDetailService.service.customerDetailService.getCustomerShareByCustomerId(customerId);
 
-        modelAndView.addObject("CustomerRatings",customerRatings);
-        modelAndView.addObject("CustomerId",CustomerId);
-        modelAndView.setViewName("ShowCustomer");
+        modelAndView.addObject("CustomerRatings",customerShares);
+        modelAndView.addObject("CustomerId",customerId);
+        modelAndView.setViewName("ShowCustomerShares");
         return modelAndView;
     }
 
